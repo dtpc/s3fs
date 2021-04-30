@@ -433,6 +433,15 @@ def test_ls(s3):
     assert fn in s3.ls(test_bucket_name + "/test", detail=False)
 
 
+@pytest.mark.parametrize("find", [False, True])
+def test_lsdir(s3, find):
+    if find:
+        s3.find(test_bucket_name)
+
+    d = test_bucket_name + "/test"
+    assert d in s3.ls(test_bucket_name)
+
+
 def test_pickle(s3):
     import pickle
 
